@@ -121,11 +121,11 @@ export default function SwapCard() {
   async function handleSwap() {
     if (address) {
       setIsLoading(true);
-      const hasBalance = await checkBalance();
-      if (!hasBalance) {
-        setIsLoading(false);
-        return;
-      }
+      // const hasBalance = await checkBalance();
+      // if (!hasBalance) {
+      //   setIsLoading(false);
+      //   return;
+      // }
       const allowance = await checkAllowance(
         TOKENLIST[sellToken].address,
         address
