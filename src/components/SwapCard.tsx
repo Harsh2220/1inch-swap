@@ -38,19 +38,6 @@ export default function SwapCard() {
     hash: data?.hash,
   });
 
-  if (isSuccess) {
-    toast("Swapped successfully 🎉", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  }
-
   async function checkBalance() {
     if (sellToken === 0) {
       if (!(parseFloat(balance?.formatted!) > sellAmount)) {
@@ -88,7 +75,7 @@ export default function SwapCard() {
   }
 
   async function handleTransaction() {
-    if (!buyToken || !address) return;
+    if (buyToken === undefined || !address) return;
     const transaction = await swapTokens(
       TOKENLIST[sellToken].address,
       TOKENLIST[buyToken].address,
@@ -136,6 +123,18 @@ export default function SwapCard() {
       }
       handleTransaction();
       setIsLoading(false);
+      if (isSuccess) {
+        toast("Swapped successfully 🎉", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     }
   }
 
