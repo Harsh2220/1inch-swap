@@ -140,7 +140,7 @@ export default function SwapCard() {
   }
 
   async function handleQuote() {
-    if (!buyToken || !sellAmount) return;
+    if (buyToken === undefined || sellAmount === 0) return;
     setIsLoading(true);
     const quote = await getQuote(
       TOKENLIST[sellToken].address,
