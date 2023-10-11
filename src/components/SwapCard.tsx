@@ -17,6 +17,7 @@ import TOKENLIST from "../data/TokenList.json";
 import BuyCard from "./BuyCard";
 import SellCard from "./SellCard";
 import Spinner from "./UI/Spinner";
+import formatBalance from "@/utils/formatBalance";
 
 export default function SwapCard() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -88,7 +89,7 @@ export default function SwapCard() {
       sendTransaction({
         account: address,
         to: transaction.tx.to,
-        value: BigInt(transaction.tx.value),
+        value: BigInt(formatBalance(transaction.tx.value, sellToken)),
         data: transaction.tx.data,
       });
     }
