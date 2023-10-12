@@ -77,6 +77,7 @@ export default function SwapCard() {
 
   async function handleTransaction() {
     if (buyToken === undefined || !address) return;
+    console.log(sellAmount, "sell");
     const transaction = await swapTokens(
       TOKENLIST[sellToken].address,
       TOKENLIST[buyToken].address,
@@ -89,7 +90,7 @@ export default function SwapCard() {
       sendTransaction({
         account: address,
         to: transaction.tx.to,
-        value: BigInt(formatBalance(transaction.tx.value, sellToken)),
+        value: BigInt(formatBalance(parseInt(transaction.toAmount), sellToken)),
         data: transaction.tx.data,
       });
     }
