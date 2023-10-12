@@ -39,6 +39,14 @@ export default function SwapCard() {
     hash: data?.hash,
   });
 
+  if (error) {
+    console.log(error, "error");
+  }
+
+  if (data) {
+    console.log(data, "data");
+  }
+
   async function checkBalance() {
     if (sellToken === 0) {
       if (!(parseFloat(balance?.formatted!) > sellAmount)) {
@@ -81,16 +89,15 @@ export default function SwapCard() {
     const transaction = await swapTokens(
       TOKENLIST[sellToken].address,
       TOKENLIST[buyToken].address,
-      sellAmount,
+      formatBalance(sellAmount, sellToken),
       address,
       "1"
     );
     console.log(transaction);
     if (transaction.tx) {
       sendTransaction({
-        account: address,
         to: transaction.tx.to,
-        value: BigInt(formatBalance(parseInt(transaction.toAmount), sellToken)),
+        value: BigInt(transaction.tx.value),
         data: transaction.tx.data,
       });
     }
